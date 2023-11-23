@@ -4,7 +4,7 @@ def split_string(string, n):
 
 def main():
     # Create Alphabet Library
-    alphabet = 'abcdefghijklmnopqrstuvwxyz '
+    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
     library = {}
     for i, letter in enumerate(alphabet):
         library[str(i).zfill(2)] = letter

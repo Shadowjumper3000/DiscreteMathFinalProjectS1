@@ -1,5 +1,5 @@
 def main():
-    alphabet = 'abcdefghijklmnopqrstuvwxyz '
+    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
     library = {}
     for i, letter in enumerate(alphabet):
         library[letter] = str(i).zfill(2)
@@ -7,6 +7,16 @@ def main():
     # Take input for public key values
     PublicKeyN = int(input("Enter n: "))
     PublicKeyE = int(input("Enter e: "))
+
+    # Calculate the block size
+    k = 0
+    l = str(len(library))
+    while int(l) <= PublicKeyN:
+        l += str(len(library))
+        k += 2
+        if int(l) > PublicKeyN:
+            break
+    print(k)
 
     # Take input for the raw message
     rawMessage = input("Input your message here: ")
@@ -24,15 +34,6 @@ def main():
         else:
             print(f"Error: Character '{char}' not in the alphabet!")
             exit()
-
-    # Calculate the block size
-    k = 0
-    l = str(len(library))
-    while int(l) <= PublicKeyN:
-        l += str(len(library))
-        k += 2
-        if int(l) > PublicKeyN:
-            break
 
     # Split the message into blocks
     blocks = [numericMessage[i:i + k] for i in range(0, len(numericMessage), k)]
