@@ -7,7 +7,7 @@ def main():
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
     library = {}
     for i, letter in enumerate(alphabet):
-        library[str(i).zfill(2)] = letter
+        library[i] = letter
 
     # Get Private Key
     PrivateKeyN = int(input("Enter n: "))
@@ -30,15 +30,17 @@ def main():
     decodedMessage = ""
     for i in encodedMessage:
         # Decrypt the block and convert it to a string
+        print("encoded Message: " + str(i))
         decryptedBlock = str(pow(int(i), PrivateKeyD, PrivateKeyN))
 
         # Split the decrypted block into pairs of two characters
-        pairs = split_string(str(decryptedBlock).zfill(4), 2)
+        pairs = split_string(str(decryptedBlock).zfill(k), 2)
 
         # Convert each pair to its corresponding letter using the alphabet library
         for pair in pairs:
+            print("alphabet: " + str(pair))
             if pair != str(len(alphabet)+1):
-                decodedMessage += library[pair]
+                decodedMessage += library[int(pair)]
             
     print(decodedMessage)
 

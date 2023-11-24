@@ -2,7 +2,7 @@ def main():
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
     library = {}
     for i, letter in enumerate(alphabet):
-        library[letter] = str(i).zfill(2)
+        library[letter] = i
 
     # Take input for public key values
     PublicKeyN = int(input("Enter n: "))
@@ -16,7 +16,6 @@ def main():
         k += 2
         if int(l) > PublicKeyN:
             break
-    print(k)
 
     # Take input for the raw message
     rawMessage = input("Input your message here: ")
@@ -43,8 +42,8 @@ def main():
     for b in blocks:
 
         # Convert the block to an integer
-        if len(b) < 3:
-            b += str(len(alphabet)+1)
+        if len(b) <= k/2:
+            b += str(len(alphabet)+1).zfill(k)
         blockInt = int(b)
 
         # Check if the block value exceeds the public key modulus
