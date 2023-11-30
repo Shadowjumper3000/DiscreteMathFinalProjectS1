@@ -1,4 +1,3 @@
-
 def split_string(string, n):
     return [string[i:i+n] for i in range(0, len(string), n)]
 
@@ -18,24 +17,25 @@ def main():
     l = str(len(library))
     while int(l) <= PrivateKeyN:
         l += str(len(library))
-        k += 2
+        k += 1
         if int(l) > PrivateKeyN:
             break
 
-    # Get encoded message as list of ints
-    encodedMessage = [str(i) for i in input("Enter encoded message: ").split()]
-    if len(encodedMessage[0]) > k:
-        encodedMessage = [int(encodedMessage[0][i:i+k]) for i in range(0, len(encodedMessage[0]), k)]
-
+    # Get encoded message as a list of ints
+    encodedMessage = input("Enter encoded message: ").strip("[]").split(", ")
+    
     decodedMessage = ""
     for i in encodedMessage:
-        # Decrypt the block and convert it to a string
-        decryptedBlock = str(pow(int(i), PrivateKeyD, PrivateKeyN))
+        try:
+            decryptedBlock = str(pow(int(i), PrivateKeyD, PrivateKeyN))
+        except ValueError:
+            continue
 
-        # Split the decrypted block into pairs of two characters
-        pairs = split_string(str(decryptedBlock).zfill(4), 2)
+        if len(decryptedBlock) < k:
+            decryptedBlock = decryptedBlock.zfill(k)
 
-        # Convert each pair to its corresponding letter using the alphabet library
+        pairs = split_string(decryptedBlock, 2)
+
         for pair in pairs:
             if pair != str(len(alphabet)+1):
                 decodedMessage += library[pair]
