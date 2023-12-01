@@ -23,7 +23,7 @@ def main():
     x = (PrimeOne - 1) * (PrimeTwo - 1)
 
     # Find a suitable e that is coprime with x
-    e = 2
+    e = 3
     while gcd(e, x) != 1:
         e += 1
 
